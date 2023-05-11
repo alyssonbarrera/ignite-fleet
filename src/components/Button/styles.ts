@@ -1,6 +1,7 @@
 import styled from 'styled-components/native'
+import { TouchableOpacity } from 'react-native'
 
-export const Container = styled.TouchableOpacity`
+export const Container = styled(TouchableOpacity)`
   flex: 1;
   min-height: 56px;
   max-height: 56px;
