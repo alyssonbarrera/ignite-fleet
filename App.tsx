@@ -5,17 +5,22 @@ import {
   Roboto_400Regular,
   Roboto_700Bold,
 } from '@expo-google-fonts/roboto'
+
 import { REALM_APP_ID } from '@env'
 import { StatusBar } from 'react-native'
 import { ThemeProvider } from 'styled-components/native'
 import { AppProvider, UserProvider } from '@realm/react'
+import { setBackgroundColorAsync } from 'expo-navigation-bar'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
-import { Home } from '@screens/Home'
+import { Routes } from '@routes/index'
 import { SignIn } from '@screens/SignIn'
 import { Loading } from '@components/Loading'
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold })
+
+  setBackgroundColorAsync(theme.COLORS.GRAY_800)
 
   if (!fontsLoaded) {
     return <Loading />
@@ -24,14 +29,16 @@ export default function App() {
   return (
     <AppProvider id={REALM_APP_ID}>
       <ThemeProvider theme={theme}>
-        <StatusBar
-          barStyle="light-content"
-          backgroundColor="transparent"
-          translucent
-        />
-        <UserProvider fallback={SignIn}>
-          <Home />
-        </UserProvider>
+        <SafeAreaProvider>
+          <StatusBar
+            barStyle="light-content"
+            backgroundColor="transparent"
+            translucent
+          />
+          <UserProvider fallback={SignIn}>
+            <Routes />
+          </UserProvider>
+        </SafeAreaProvider>
       </ThemeProvider>
     </AppProvider>
   )

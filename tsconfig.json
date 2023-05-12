@@ -13,6 +13,9 @@
       "@screens/*": [
         "./src/screens/*"
       ],
+      "@routes/*": [
+        "./src/routes/*"
+      ],
       "@theme/*": [
         "./src/theme/*"
       ],
