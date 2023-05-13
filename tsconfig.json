@@ -19,6 +19,9 @@
       "@theme/*": [
         "./src/theme/*"
       ],
+      "@libs/*": [
+        "./src/libs/*"
+      ],
     }
   }
 }

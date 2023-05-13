@@ -15,6 +15,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import { Routes } from '@routes/index'
 import { SignIn } from '@screens/SignIn'
+import { RealmProvider } from '@libs/realm'
 import { Loading } from '@components/Loading'
 
 export default function App() {
@@ -36,7 +37,9 @@ export default function App() {
             translucent
           />
           <UserProvider fallback={SignIn}>
-            <Routes />
+            <RealmProvider>
+              <Routes />
+            </RealmProvider>
           </UserProvider>
         </SafeAreaProvider>
       </ThemeProvider>
