@@ -1,6 +1,6 @@
 import theme from '@theme/index'
-import { useUser, useApp } from '@realm/react'
 import { Power } from 'phosphor-react-native'
+import { useUser, useApp } from '@realm/react'
 import { TouchableOpacity } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
