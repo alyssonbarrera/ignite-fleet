@@ -1,4 +1,5 @@
 // eslint-disable-next-line camelcase
+import '@libs/dayjs'
 import theme from '@theme/index'
 import {
   useFonts,

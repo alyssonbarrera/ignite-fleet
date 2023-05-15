@@ -6,12 +6,12 @@ import { Realm, useApp } from '@realm/react'
 import * as WebBrowser from 'expo-web-browser'
 import * as Google from 'expo-auth-session/providers/google'
 
+import { Button } from '@components/Button'
+import backgroundImg from '@assets/background.png'
+
 import { ANDROID_CLIENT_ID, IOS_CLIENT_ID } from '@env'
 
-import { Button } from '@components/Button'
 import { Container, Title, Slogan } from './styles'
-
-import backgroundImg from '@assets/background.png'
 
 WebBrowser.maybeCompleteAuthSession()
 

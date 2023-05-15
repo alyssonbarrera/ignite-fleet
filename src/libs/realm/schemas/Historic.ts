@@ -1,5 +1,6 @@
 /* eslint-disable no-use-before-define */
 import { Realm } from '@realm/react'
+import { randomUUID } from 'expo-crypto'
 
 type GenerateProps = {
   user_id: string
@@ -18,7 +19,7 @@ export class Historic extends Realm.Object<Historic> {
 
   static generate({ user_id, description, license_plate }: GenerateProps) {
     return {
-      _id: new Realm.BSON.UUID(),
+      _id: randomUUID(),
       user_id,
       description,
       license_plate,
@@ -33,7 +34,7 @@ export class Historic extends Realm.Object<Historic> {
     primaryKey: '_id',
 
     properties: {
-      _id: 'uuid',
+      _id: 'string',
       user_id: {
         type: 'string',
         indexed: true,
