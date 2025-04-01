@@ -26,6 +26,9 @@ module.exports = {
       infoPlist: {
         UIBackgroundModes: ['location', 'fetch'],
       },
+      entitlements: {
+        'com.apple.developer.networking.wifi-info': true,
+      },
     },
     android: {
       adaptiveIcon: {

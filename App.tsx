@@ -16,10 +16,14 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import { Routes } from '@routes/index'
 import { SignIn } from '@screens/SignIn'
-import { RealmProvider } from '@libs/realm'
+import { RealmProvider, syncConfig } from '@libs/realm'
 import { Loading } from '@components/Loading'
+import { useNetInfo } from '@react-native-community/netinfo'
+import { TopMessage } from '@components/TopMessage'
+import { WifiSlash } from 'phosphor-react-native'
 
 export default function App() {
+  const netInfo = useNetInfo()
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold })
 
   setBackgroundColorAsync(theme.COLORS.GRAY_800)
@@ -34,13 +38,17 @@ export default function App() {
         <SafeAreaProvider
           style={{ flex: 1, backgroundColor: theme.COLORS.GRAY_800 }}
         >
+          {!netInfo.isConnected && (
+            <TopMessage title="Você está off-line" icon={WifiSlash} />
+          )}
+
           <StatusBar
             barStyle="light-content"
             backgroundColor="transparent"
             translucent
           />
           <UserProvider fallback={SignIn}>
-            <RealmProvider>
+            <RealmProvider sync={syncConfig} fallback={Loading}>
               <Routes />
             </RealmProvider>
           </UserProvider>

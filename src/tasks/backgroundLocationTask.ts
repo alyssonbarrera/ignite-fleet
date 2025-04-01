@@ -1,4 +1,7 @@
-import { saveStorageLocation } from '@libs/asyncStorage/locationStorage'
+import {
+  removeStorageLocations,
+  saveStorageLocation,
+} from '@libs/asyncStorage/locationStorage'
 import {
   Accuracy,
   stopLocationUpdatesAsync,
@@ -58,6 +61,7 @@ export async function stopLocationTask() {
 
     if (hasStarted) {
       await stopLocationUpdatesAsync(BACKGROUND_TASK_NAME)
+      await removeStorageLocations()
     }
   } catch (error) {
     console.log(error)

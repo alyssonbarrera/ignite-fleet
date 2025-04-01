@@ -14,6 +14,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 import { useUser } from '@realm/react'
 import { useRealm } from '@libs/realm'
+import { openSettings } from '@utils/openSettings'
 import { Historic } from '@libs/realm/schemas/Historic'
 import { getAddressLocation } from '@utils/getAddressLocation'
 import { licensePlateValidate } from '@utils/licensePlateValidate'
@@ -24,10 +25,11 @@ import { Button } from '@components/Button'
 import { TextAreaInput } from '@components/TextAreaInput'
 import { LicensePlateInput } from '@components/LicensePlateInput'
 
-import { Container, Content, Message } from './styles'
 import { Loading } from '@components/Loading'
 import { LocationInfo } from '@components/LocationInfo'
 import { startLocationTask } from 'src/tasks/backgroundLocationTask'
+
+import { Container, Content, Message, MessageContent } from './styles'
 
 export function Departure() {
   const [description, setDescription] = useState('')
@@ -79,9 +81,11 @@ export function Departure() {
 
       if (!backgroundPermissions.granted) {
         setIsRegistering(false)
+
         return Alert.alert(
           'Localização',
           'É necessário permitir que o App tenha acesso à localização em segundo plano. Acesse as configurações do dispositivo e habilite "Permitir o tempo todo".',
+          [{ text: 'Abrir configurações', onPress: openSettings }],
         )
       }
 
@@ -94,6 +98,13 @@ export function Departure() {
             user_id: user!.id,
             license_plate: licensePlate.toUpperCase(),
             description,
+            coords: [
+              {
+                latitude: currentCoords.latitude,
+                longitude: currentCoords.longitude,
+                timestamp: new Date().getTime(),
+              },
+            ],
           }),
         )
       })
@@ -157,11 +168,16 @@ export function Departure() {
       <Container>
         <Header title="Saída" />
 
-        <Message>
-          Você precisa permitir que o aplicativo tenha acesso à localização para
-          utilizar esta funcionalidade. Por favor, acesse as configurações do
-          seu dispositivo para conceder esta permissão ao aplicativo.
-        </Message>
+        <MessageContent>
+          <Message>
+            Você precisa permitir que o aplicativo tenha acesso à localização
+            para utilizar esta funcionalidade. Por favor, acesse as
+            configurações do seu dispositivo para conceder esta permissão ao
+            aplicativo.
+          </Message>
+
+          <Button title="Abrir Configurações" onPress={openSettings} />
+        </MessageContent>
       </Container>
     )
   }
